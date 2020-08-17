@@ -31,7 +31,7 @@ npm_deps_aspect = aspect(
 def _write_rollup_config(ctx, substitutions = {}):
     config = ctx.actions.declare_file("_%s.rollup_config.js" % ctx.label.name)
     ctx.actions.expand_template(
-        template = ctx.file._rollup_config,
+        template = ctx.file.rollup_config,
         output = config,
         substitutions = substitutions,
     )
@@ -93,7 +93,7 @@ def _rollup_impl(ctx):
     rollup_args.extend(["--config", rollup_config.path])
     rollup_args.extend(["--input", entry[0]])
     rollup_args.extend(["--output.file", rollup_output.path])
-    rollup_args.extend(["--format", "cjs"])
+    rollup_args.extend(["--format", ctx.attr.format])
     rollup_args.extend(["--external", join(rollup_globals, ",")])
 
     # Prevent rollup's module resolver from hopping outside Bazel's sandbox
@@ -123,7 +123,7 @@ rollup = rule(
             cfg = "host",
             default = "@npm//rollup/bin:rollup",
         ),
-        "_rollup_config": attr.label(
+        "rollup_config": attr.label(
             default = Label("//tools/bazel_rules/rollup:rollup.config.js"),
             allow_single_file = True,
         ),
@@ -139,6 +139,10 @@ rollup = rule(
         "entry_point": attr.label_keyed_string_dict(
             allow_files = True,
             mandatory = True,
+        ),
+        "format": attr.string(
+            default = "cjs",
+            doc = "The output bundle format" 
         ),
         "deps": attr.label_list(
             aspects = [npm_deps_aspect, module_mappings_aspect],
