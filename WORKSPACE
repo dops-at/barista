@@ -59,7 +59,7 @@ npm_install(
     ],
     package_json = "//:package.json",
     package_lock_json = "//:package-lock.json",
-    quiet = False,
+    quiet = True,
     symlink_node_modules = True,
 )
 
