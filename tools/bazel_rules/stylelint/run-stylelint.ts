@@ -16,16 +16,14 @@
 import { lint, LinterResult } from 'stylelint';
 import { junitFormatter, createXML } from './junit-formatter';
 import { writeFileSync } from 'fs';
+import { resolve } from 'path';
 import { options } from 'yargs';
 
-const { BAZEL_NODE_RUNFILES_HELPER, XML_OUTPUT_FILE } = process.env;
+const { XML_OUTPUT_FILE } = process.env;
 
-if (!BAZEL_NODE_RUNFILES_HELPER || !XML_OUTPUT_FILE) {
+if (!XML_OUTPUT_FILE) {
   throw new Error('Bazel environment variables are not set!');
 }
-
-// bazel run files helper used to resolve paths that are created with `$(location ...)`
-const runFilesHelper = require(BAZEL_NODE_RUNFILES_HELPER);
 
 const { files, allowEmpty, config } = options({
   files: { type: 'array', default: [] },
@@ -44,8 +42,9 @@ async function main(): Promise<void> {
     };
   } else {
     lintingOutcome = await lint({
-      configFile: runFilesHelper.resolve(config),
-      files: files.map((f) => runFilesHelper.resolve(f)),
+      configFile: resolve(config),
+      files: files.map((f) => resolve(f)),
+      disableDefaultIgnores: true,
       formatter: junitFormatter,
     });
   }
