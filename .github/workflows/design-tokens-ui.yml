@@ -1,0 +1,69 @@
+name: Design Tokens UI 🎨
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+    - 'apps/design-tokens-ui/**'
+    - 'libs/design-tokens-ui/**'
+    - 'libs/shared/design-tokens/**'
+
+jobs:
+  deploy-ui:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Add CI config
+        run: mv .github/.bazelrc .bazelrc.user
+
+      - name: Mount bazel cache
+        uses: actions/cache@v2
+        with:
+          path: '/home/runner/.cache/bazel'
+          key: dtui-general-bazel
+
+      - name: Mount Disk cache
+        uses: actions/cache@v2
+        with:
+          path: '/home/runner/.cache/bazel-disk-cache'
+          key: dtui-disk-cache-bazel
+
+      - name: Mount Repo cache
+        uses: actions/cache@v2
+        with:
+          path: '/home/runner/.cache/bazel-repo-cache'
+          key: dtui-repo-cache-bazel
+
+      - name: Install bazelisk
+        run: |
+          curl -LO "https://github.com/bazelbuild/bazelisk/releases/download/v1.6.1/bazelisk-linux-amd64"
+          mkdir -p "${GITHUB_WORKSPACE}/bin/"
+          mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
+          chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
+
+      - name: Generate Design Tokens
+        run: |
+          "${GITHUB_WORKSPACE}/bin/bazel" build //libs/shared/design-tokens:build
+
+          npm run copy-generated-tokens
+          node tools/shell-helpers/copy-folder.js \
+            $(${GITHUB_WORKSPACE}/bin/bazel info bazel-genfiles)/libs/shared/design-tokens/build \
+            libs/shared/design-tokens/generated
+
+      - name: Build Design Tokens UI
+        run: |
+          npm run ng run design-tokens-ui:build:production
+
+      - name: ZEIT Now Deployment
+        id: now-deployment
+        uses: amondnet/now-deployment@v2
+        with:
+          zeit-token: ${{ secrets.ZEIT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          now-org-id: ${{ secrets.VERCEL_ORG_ID}}
+          now-args:
+            '--scope dynatrace-oss --confirm --prod ./dist/apps/design-tokens-ui'
+          now-project-id: ${{ secrets.VERCEL_DESIGN_TOKENS_UI_PROJECT_ID}}
