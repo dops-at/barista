@@ -2,10 +2,10 @@
   (checkedChange)="handleChange($event)"
   [disabled]="disableall"
 >
-  <fluid-button-group-item name="btngrp">
+  <fluid-button-group-item name="btngrp" [disabled]="disable">
     Options 1
   </fluid-button-group-item>
-  <fluid-button-group-item name="btngrp" [disabled]="disable">
+  <fluid-button-group-item name="btngrp">
     Buildingsteps 2
   </fluid-button-group-item>
   <fluid-button-group-item *ngIf="show" name="btngrp">
