@@ -1,8 +1,5 @@
 package(default_visibility = ["//:__subpackages__"])
 
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "nodejs_test", "npm_package_bin")
-
-
 # Allow any ts_library rules in this workspace to reference the config
 exports_files(
     [
@@ -14,18 +11,4 @@ exports_files(
         "jest.config.js"
     ],
     visibility = ["//visibility:public"],
-)
-
-nodejs_binary(
-    name = "run",
-    entry_point = "test.js",
-    data = ["test.js", ".stylelintrc"],
-    templated_args = ["--nobazel_patch_module_resolver", "--config $(rootpath :.stylelintrc)"],
-)
-
-nodejs_test(
-    name = "test",
-    entry_point = "test.js",
-    data = ["test.js", ".stylelintrc"],
-    templated_args = ["--nobazel_patch_module_resolver", "--config $(rootpath :.stylelintrc)"],
 )
