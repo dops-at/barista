@@ -27,6 +27,7 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_nodejs/releases/download/%s/rules_nodejs-%s.tar.gz" % (RULES_NODEJS_VERSION, RULES_NODEJS_VERSION),
     patches = [
       "//:rules_nodejs-npm-install+2.0.3.patch",
+      "//:rules_nodejs-launcher+2.0.3.patch",
     ]
 )
 
