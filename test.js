@@ -1,13 +1,17 @@
-console.log(`cwd: ${process.cwd()}`);
+const path = require('path');
 
-// const path = require('path');
+console.log(`
+Executed:
+================================================================
+
+STORED: ${process.env.BAZEL_NODE_RUNFILES_HELPER}`);
 // const runfiles = require(process.env['BAZEL_NODE_RUNFILES_HELPER']);
-// const args = process.argv.slice(2);
+const args = process.argv.slice(2);
 
-// console.log(`
+console.log(`
 
-// cwd: ${process.cwd()}
-// Workspace Relative: ${runfiles.resolveWorkspaceRelative(args[1])}
-// Relative: ${path.resolve(args[1])}
+cwd: ${process.cwd()}
+Relative: ${path.resolve(args[1])}
 
-// `)
+`);
+console.log(process.argv);
