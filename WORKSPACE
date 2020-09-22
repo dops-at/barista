@@ -54,7 +54,7 @@ npm_install(
     data = [
         "//:patches/@angular+bazel+10.0.6.patch",
         "//:patches/@bazel+typescript+2.0.3.patch",
-        "//:postinstall.js",
+        #"//:postinstall.js",
         "//:view-engine-tsconfig.json"
     ],
     package_json = "//:package.json",
