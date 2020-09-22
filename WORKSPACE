@@ -66,9 +66,9 @@ npm_install(
 # Install the @angular/bazel package into @npm_angular_bazel
 # Note, this will probably break in a future rules_nodejs release.
 # It causes all builds to fetch npm packages even if not needed (eg. only building go code)
-load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+#load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
-install_bazel_dependencies(suppress_warning = False)
+#install_bazel_dependencies(suppress_warning = False)
 
 # Setup the rules_sass toolchain
 load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
