@@ -9,5 +9,5 @@ echo "Adding CI specific bazel.rc"
 # import the buildkite bazel rc
 echo "import %workspace%/.buildkite/bazel.rc" >> ./.bazelrc
 
-echo "--- Workspace information"
+echo "--- Workspace information add some text"
 bazel info
