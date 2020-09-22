@@ -9,8 +9,11 @@ echo "Adding CI specific bazel.rc"
 # import the buildkite bazel rc
 echo "import %workspace%/.buildkite/bazel.rc" >> ./.bazelrc
 
+echo "--- only output_base"
+bazel info output_base
+
 echo "--- Workspace information"
-bazel --output_base=/var/lib/buildkite-agent/output_base info
+bazel info
 
 echo "--- call it again and check duration"
-bazel --output_base=/var/lib/buildkite-agent/output_base info
+bazel info
