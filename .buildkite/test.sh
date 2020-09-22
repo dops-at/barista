@@ -2,7 +2,9 @@
 
 set -euo pipefail
 
-python3 ./.buildkite/test.py
+#python3 ./.buildkite/test.py
+
+bazel test //...
 
 # shard_targets () {
 #   array="$@"
