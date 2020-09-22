@@ -49,19 +49,19 @@ load("@build_bazel_rules_nodejs//:index.bzl", "check_bazel_version", "npm_instal
 check_bazel_version("3.1.0")
 
 # Install all dependencies with npm
-npm_install(
-    name = "npm",
-    data = [
-        "//:patches/@angular+bazel+10.0.6.patch",
-        "//:patches/@bazel+typescript+2.0.3.patch",
-        #"//:postinstall.js",
-        "//:view-engine-tsconfig.json"
-    ],
-    package_json = "//:package.json",
-    package_lock_json = "//:package-lock.json",
-    quiet = False,
-    symlink_node_modules = True,
-)
+#npm_install(
+#    name = "npm",
+#    data = [
+#        "//:patches/@angular+bazel+10.0.6.patch",
+#        "//:patches/@bazel+typescript+2.0.3.patch",
+#        "//:postinstall.js",
+#        "//:view-engine-tsconfig.json"
+#    ],
+#    package_json = "//:package.json",
+#    package_lock_json = "//:package-lock.json",
+#    quiet = False,
+#    symlink_node_modules = True,
+#)
 
 # Install the @angular/bazel package into @npm_angular_bazel
 # Note, this will probably break in a future rules_nodejs release.
