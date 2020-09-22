@@ -119,7 +119,7 @@ def eprint(*args, **kwargs):
     """
     Print to stderr and flush (just in case).
     """
-    print(*args, flush=True, file=sys.stderr, **kwargs)
+    print(args, flush=True, file=sys.stderr, **kwargs)
 
 def execute_command_and_get_output(
   args,
