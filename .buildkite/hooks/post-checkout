@@ -13,7 +13,7 @@ echo "--- only output_base"
 bazel info output_base
 
 echo "--- Workspace information"
-bazel info
+#bazel info
 
 echo "--- call it again and check duration"
-bazel info
+#bazel info
