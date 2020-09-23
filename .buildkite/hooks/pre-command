@@ -1,4 +1,0 @@
-set -eu
-echo '--- :eagle: set environment'
-
-export BUILDKITE_GIT_CLEAN_FLAGS='-ffxg'

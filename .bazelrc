@@ -100,8 +100,8 @@ build --strategy=AngularTemplateCompile=worker
 # so we need to disable it with this env var
 build --define=NG_BUILD_CACHE=false
 
-build --remote_http_cache=https://storage.googleapis.com/dt-barista-build-cache
-build --remote_upload_local_results=false
+#build --remote_http_cache=https://storage.googleapis.com/dt-barista-build-cache
+#build --remote_upload_local_results=false
 
 
 # ------------------------------------------------------------------------------------------------
