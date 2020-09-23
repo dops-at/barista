@@ -9,6 +9,7 @@
     "lint": "nx workspace-lint && npm run affected:lint -- --parallel && npm run bazel:stylelint",
     "e2e": "ng run components-e2e:e2e-all",
     "universal": "ng build universal",
+    "postinstall": "node postinstall.js",
     "build:components": "npm run build components",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
