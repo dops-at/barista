@@ -3,7 +3,7 @@
 set -euo pipefail
 
 #python3 ./.buildkite/test.py
-ps -ef 
+ps -ef
 bazel test //...
 
 # shard_targets () {
